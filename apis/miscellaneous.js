@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+
 router.get('/confirmEmail/:token', async (req, res) => {
 	try {
 		const token = req.params.token;

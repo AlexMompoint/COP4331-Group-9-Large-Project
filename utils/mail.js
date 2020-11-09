@@ -11,8 +11,10 @@ async function sendVerificationMail(userEmail, id) {
 			},
 		});
 		const token = createVerificationToken(id);
-		// const url = `http://localhost:5000/api/miscellaneous/confirmEmail/${token}`; for developer works
-		const url = `https://group9-meetingscheduler.herokuapp.com/api/miscellaneous/confirmEmail/${token}`;
+		let url;
+		if (process.env.NODE_ENV === 'production')
+			url = `https://group9-meetingscheduler.herokuapp.com/api/miscellaneous/confirmEmail/${token}`;
+		else url = `http://localhost:5000/api/miscellaneous/confirmEmail/${token}`;
 		await transporter.sendMail({
 			to: userEmail,
 			from: '"Schedule App email" <cop4331g9fall2020@gmail.com>',

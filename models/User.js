@@ -6,6 +6,7 @@ const userSchema = new Schema({
 	Email: String,
 	FirstName: String,
 	LastName: String,
+	Friends: [{ id: String, Username: String, pending: Boolean }],
 	isVerified: Boolean,
 });
 
