@@ -56,6 +56,7 @@ function CreateUser()
         
         let transporter = nodemailer.createTransport
     ({
+        service: 'gmail',
         host: 'smtp.gmail.com',
         port: 465,
         secure: true,
@@ -69,7 +70,7 @@ function CreateUser()
         let mail = 
         {
             from: 'group9scheduler@gmail.com',
-            to: 'loganrod16@gmail.com',
+            to: 'danielhotero96@gmail.com',
             subject: 'Email Verification',
             text: 'TEST'
         };
