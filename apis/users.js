@@ -16,7 +16,7 @@ router.post('/createUser', async (req, res) => {
 
 		if (Object.keys(errors).length !== 0) return res.status(400).json(errors);
 		const mailExists = await User.findOne({ Email: email });
-		if (mailExists) return res.status.json({ errors: 'email already in use' });
+		if (mailExists) return res.status(400).json({ errors: 'email already in use' });
 
 		const usernameExists = await User.findOne({ Username: username });
 		if (usernameExists)
