@@ -16,9 +16,14 @@ function LoggedInName()
     };
 
     return(
-        <div id="loggedInDiv">
-            <span id="userName">Logged In As {firstName} {lastName} </span><br />
-            <button type="button" id="logoutButton" class="buttons" onClick={doLogout}> Log Out </button>
+         <div id="loginDiv">
+            <form onSubmit={doLogin}>
+                <span id ="inner-title">Please Login!</span><br />
+                <input type="text" id="loginName" placeholder="Username" ref={ (c) => loginName = c} /><br />
+                <input type="password" id="loginPassword" placeholder="Password" ref={ (c) => loginPassword = c} /><br />
+                <input type="submit" id="loginButton" class="buttons" value="Login" onClick={doLogin} />
+            </form>
+            <span id="loginResult">{message}</span>
         </div>
     );
 };
