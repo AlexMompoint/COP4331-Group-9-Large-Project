@@ -9,8 +9,8 @@ import './App.css';
 
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
-import LoginComponent from './components/LoginComponent';
-import Login from './components/Login';
+//import LoginComponent from './components/LoginComponent';
+//import Login from './components/Login';
 function App() {
 	return (
 		 <Router >
