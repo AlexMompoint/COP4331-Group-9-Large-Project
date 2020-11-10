@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function Login()
+function doLogin()
 {
     const app_name = 'group9-meetingscheduler'
     function buildPath(route)
