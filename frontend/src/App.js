@@ -13,18 +13,18 @@ import LoginComponent from './components/LoginComponent';
 import Login from './components/Login';
 function App() {
 	return (
-		// <Router >
-		//   <Switch>
-		//     <Route path="/" exact>
-		//       <LoginPage />
-		//     </Route>
-		//     <Route path="/scheduler" exact>
-		//       <HomePage />
-		//     </Route>
-		//     <Redirect to="/" />
-		//   </Switch>
-		// </Router>
-		<LoginComponent />
+		 <Router >
+		   <Switch>
+		     <Route path="/" exact>
+		       <LoginPage />
+		     </Route>
+		     <Route path="/scheduler" exact>
+		       <HomePage />
+		     </Route>
+		     <Redirect to="/" />
+		   </Switch>
+		 </Router>
+		//<LoginComponent />
 	);
 }
 
