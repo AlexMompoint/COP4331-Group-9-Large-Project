@@ -27,7 +27,7 @@ function CreateUser()
     {
         event.preventDefault();
         
-        var obj = {username:username.value, password:password.value, fname:fname.value, lname:lname.value, email:email.value}
+        var obj = {username:username.value, password:password.value, confirmPassword:password.value, fname:fname.value, lname:lname.value, email:email.value}
         var js = JSON.stringify(obj);
 
         try
