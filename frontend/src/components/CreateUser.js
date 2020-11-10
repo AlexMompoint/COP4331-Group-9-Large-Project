@@ -27,9 +27,7 @@ function CreateUser()
     const [message,setMessage] = useState('');
 
     const createUser = async event => 
-    {
-        console.log("FUCK");
-        
+    {        
         event.preventDefault();
         
         var obj = {username:username.value, password:password.value, fname:fname.value, lname:lname.value, email:email.value, confirmPassword:confirmPassword.value}
