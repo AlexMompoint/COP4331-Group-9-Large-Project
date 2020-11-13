@@ -60,7 +60,7 @@ router.post('api/editevent', async (req, res) =>
     // outgoing: error
     try
     {
-        let { id, newstarttime, newendtime }
+        let { id, newstarttime, newendtime } = req.body;
         const event = Event.findById(id);
         if (!event) return res.status(400).json('event does not exist');
 

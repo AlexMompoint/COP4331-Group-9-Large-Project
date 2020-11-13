@@ -2,7 +2,7 @@ const { Int32 } = require('mongodb');
 const { model, Schema } = require('mongoose');
 
 const eventSchema = new Schema({
-	UserId: Int32,
+	UserId: String,
 	StartTime: String,
     EndTime: String,
     Days: String,
