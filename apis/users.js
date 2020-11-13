@@ -134,7 +134,7 @@ router.delete('/deletefriend', async (req, res) => {
 		return res.status(200).json('successfully removed friend');
 	} catch (error) {
 		console.error(error);
-		return res.status(400).json('internal server error');
+		return res.status(500).json('internal server error');
 	}
 });
 module.exports = router;
