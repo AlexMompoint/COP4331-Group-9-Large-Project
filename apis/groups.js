@@ -8,7 +8,7 @@ router.post('/api/addgroup', async (req, res) =>
     try 
     {
         const errors = {};
-		let { groupname, userids, endtime } = req.body;
+		let { groupname, userids } = req.body;
 
 		const nameConflict = await Group.findOne({ Name: groupname });
 		if (nameConflict) return res.status(400).json({ errors: 'group name already taken' });

@@ -9,6 +9,7 @@ import './App.css';
 
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import GroupPage from './pages/GroupPage';
 //import LoginComponent from './components/LoginComponent';
 //import Login from './components/Login';
 function App() {
@@ -18,7 +19,10 @@ function App() {
 		     <Route path="/" exact>
 		       <LoginPage />
 		     </Route>
-		     <Route path="/scheduler" exact>
+			 <Route path="/groups" exact>
+				<GroupPage />
+			 </Route>
+		     <Route path="/userpage" exact>
 		       <HomePage />
 		     </Route>
 		     <Redirect to="/" />
