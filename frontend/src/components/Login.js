@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 function Login()
-{
+{    
     const app_name = 'group9-meetingscheduler'
     function buildPath(route)
     {
@@ -21,6 +21,8 @@ function Login()
 
     const doLogin = async event => 
     {
+        console.log("Hello, I am logged in. It's working. Can you see me?");
+        
         event.preventDefault();
         var obj = {username:loginName.value,password:loginPassword.value}
         var js = JSON.stringify(obj);
@@ -54,10 +56,10 @@ function Login()
     return(
         <div id="loginDiv">
             <form onSubmit={doLogin}>
-            <span id ="inner-title">PLEASE LOG IN</span><br />
-            <input type="text" id="loginName" placeholder="Username" ref={ (c) => loginName = c} /><br />
-            <input type="password" id="loginPassword" placeholder="Password" ref={ (c) => loginPassword = c} /><br />
-            <input type="submit" id="loginButton" class="buttons" value="Login" onClick={doLogin} />
+                <span id ="inner-title">Please Login!</span><br />
+                <input type="text" id="loginName" placeholder="Username" ref={ (c) => loginName = c} /><br />
+                <input type="password" id="loginPassword" placeholder="Password" ref={ (c) => loginPassword = c} /><br />
+                <input type="submit" id="loginButton" class="buttons" value="Login" onClick={doLogin} />
             </form>
             <span id="loginResult">{message}</span>
         </div>

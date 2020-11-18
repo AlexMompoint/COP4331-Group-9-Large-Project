@@ -1,4 +1,7 @@
+
 import React, {useState} from 'react';
+//new  edit
+const nodemailer = require('nodemailer');
 
 function CreateUser()
 {
@@ -17,17 +20,17 @@ function CreateUser()
 
     var username;
     var password;
-    var cPassword;
+    var confirmPassword;
     var fname;
     var lname;
     var email;
     const [message,setMessage] = useState('');
 
     const createUser = async event => 
-    {
+    {        
         event.preventDefault();
         
-        var obj = {username:username.value, password:password.value, confirmPassword:password.value, fname:fname.value, lname:lname.value, email:email.value}
+        var obj = {username:username.value, password:password.value, fname:fname.value, lname:lname.value, email:email.value, confirmPassword:confirmPassword.value}
         var js = JSON.stringify(obj);
 
         try
@@ -50,18 +53,53 @@ function CreateUser()
         {
             setMessage(e.toString());
         }
+        
+        let transporter = nodemailer.createTransport
+    ({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth:
+        {
+            user: 'group9scheduler@gmail.com',
+            pass:'cop4331$'
+        }
+    });
+    
+        let mail = 
+        {
+            from: 'group9scheduler@gmail.com',
+            to: 'danielhotero96@gmail.com',
+            subject: 'Email Verification',
+            text: 'TEST'
+        };
+    
+        transporter.sendMail( mail, ( error, response ) =>
+        {
+            if( error )
+            {
+                console.log('An error has occured');
+            }
+            else
+            {
+                console.log('The mail was sent!');
+            }
+        });
     };
-
+    
+    //end new
+    //changed onClick; added onclick{doVerify}
     return(
         <div id="accessUIDiv">
             <br />
-            <span id ="inner-title">Create a User</span><br />
+            <span id ="inner-title">Create Account</span><br />
             <input type="text" id="fname" placeholder="First Name" ref={(c) => fname = c} /><br />
             <input type="text" id="lname" placeholder="Last Name" ref={(c) => lname = c} /><br />
             <input type="text" id="email" placeholder="Email" ref={(c) => email = c} /><br />
             <input type="text" id="username" placeholder="Username To Add" ref={(c) => username = c} /><br />
             <input type="password" id="password" placeholder="Password" ref={(c) => password = c} /><br />
-            <input type="password" id="cPassword" placeholder="Confirm Password" ref={(c) => cPassword = c} /><br />      
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" ref={(c) => confirmPassword = c} /><br />
             <button type="button" id="createUserButton" class="buttons" onClick={createUser}> Create User </button><br />
             <span id="userAddResult">{message}</span>
         </div>
