@@ -10,7 +10,8 @@ router.post('/api/addevent', async (req, res) =>
         const errors = {};
 		let { userid, starttime, endtime, days, group } = req.body;
 
-		// const timeConflict = await Event.     TODO somehow check for conflicting time events here?
+        // const timeConflict = await Event.     TODO somehow check for conflicting time events here?
+        timeConflict = false;
 		if (timeConflict) return res.status(400).json({ errors: 'time slot already busy' });
 
 		const newEvent = new Event({

@@ -41,7 +41,7 @@ router.post('api/deletegroup', async (req, res) =>
             if (err)  console.error(err); return res.status(401).json(err);
         });
         
-		return res.status(200).json('successfully removed event');
+		return res.status(200).json('successfully deleted group');
     }
     catch (error) 
     {
