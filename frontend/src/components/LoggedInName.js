@@ -17,7 +17,7 @@ function LoggedInName()
 
     return(
          <div id="logoutDiv">
-            <form onSubmit={doLogin}>
+            <form onSubmit={doLogout}>
                 <input type="submit" id="logoutButton" class="buttons" value="Logout" onClick={doLogout} />
             </form>
         </div>
