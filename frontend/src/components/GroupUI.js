@@ -62,6 +62,6 @@ function GroupUI()
             <span id="groupCreateResult">{message}</span>
         </div>
     );
-}
+};
 
 export default GroupUI;

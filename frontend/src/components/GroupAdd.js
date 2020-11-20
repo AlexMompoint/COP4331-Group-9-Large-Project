@@ -64,6 +64,6 @@ function GroupAdd()
             <span id="groupCreateResult">{message}</span>
         </div>
     );
-}
+};
 
 export default GroupAdd;
