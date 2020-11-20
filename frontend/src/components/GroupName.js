@@ -22,4 +22,4 @@ function GroupName()
     );
 };
 
-export default LoggedInName;
+export default GroupName;
