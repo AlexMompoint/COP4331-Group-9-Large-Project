@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function GroupUI()
+function GroupAdd()
 {
     const app_name = 'group9-meetingscheduler'
     function buildPath(route)
@@ -64,4 +64,4 @@ function GroupUI()
     );
 }
 
-export default GroupUI;
+export default GroupAdd;
