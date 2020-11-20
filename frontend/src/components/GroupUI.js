@@ -43,6 +43,7 @@ function GroupUI()
             }
             else
             {
+                window.location.href = '/groups';
                 setMessage('Group has been added');
             }
         }
@@ -54,9 +55,10 @@ function GroupUI()
 
     return(
         <div id="accessUIDiv">
-            <br />
-            <input type="text" id="groupText" placeholder="Group Name" ref={ (c) => groupname = c} />
-            <button type="button" id="addGroupButton" class="buttons" onClick={createGroup}> Create Group </button><br />
+            <form onSumbit={createGroup}>
+                <input type="text" id="groupText" placeholder="Group Name" ref={ (c) => groupname = c} />
+                <button type="button" id="addGroupButton" class="buttons" onClick={createGroup}> Create Group </button><br />
+            </form>            
             <span id="groupCreateResult">{message}</span>
         </div>
     );

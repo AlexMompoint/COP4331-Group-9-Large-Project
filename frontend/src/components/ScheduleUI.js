@@ -45,7 +45,7 @@ function ScheduleUI()
             }
             else
             {
-                setMessage('Card has been added');
+                setMessage('Event has been added');
             }
         }
         catch(e)
