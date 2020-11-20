@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-function GroupAdd()
+function GroupUI()
 {
     const app_name = 'group9-meetingscheduler'
     function buildPath(route)
@@ -15,24 +15,23 @@ function GroupAdd()
         }
     }
 
-    var event = '';
     const [message,setMessage] = useState('');
 
-    var _ud = localStorage.getItem('user_data');
-    var ud = JSON.parse(_ud);
-    var groupname;
-    var users = ud.id;
+    var _gd = localStorage.getItem('group_data');
+    var gd = JSON.parse(_gd);
+    var groupname = gd.groupname;
+    var id = gd.id;
 
-    const createGroup = async event => 
+    const deleteGroup = async event => 
     {
         event.preventDefault();
 
-        var obj = { groupname:groupname.value, userids:users };
+        var obj = { id:id };
         var js = JSON.stringify(obj);
         
         try
         {
-            const response = await fetch(buildPath('api/addgroup'),
+            const response = await fetch(buildPath('api/deletegroup'),
             {method:'POST',body:js,headers:{'Content-Type':'application/json'}});
             var txt = await response.text();
             var res = JSON.parse(txt);
@@ -43,10 +42,9 @@ function GroupAdd()
             }
             else
             {
-                var group = {groupname:groupname.value}
-                localStorage.setItem('group_data', JSON.stringify(group));
+                localStorage.removeItem("group_data");
                 window.location.href = '/groups';
-                setMessage('Group has been added');
+                setMessage('Group has been removed');
             }
         }
         catch(e)
@@ -57,13 +55,13 @@ function GroupAdd()
 
     return(
         <div id="accessUIDiv">
-            <form onSumbit={createGroup}>
-                <input type="text" id="groupText" placeholder="Group Name" ref={ (c) => groupname = c} />
-                <button type="button" id="addGroupButton" class="buttons" onClick={createGroup}> Create Group </button><br />
+            <span id="groupName"> {groupname} </span><br />
+            <form onSumbit={deleteGroup}>
+                <button type="button" id="addGroupButton" class="buttons" onClick={deleteGroup}> Delete Group </button><br />
             </form>            
             <span id="groupCreateResult">{message}</span>
         </div>
     );
 }
 
-export default GroupAdd;
+export default GroupUI;
