@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Group = require('../models/Group');
 
-router.post('/api/addgroup', async (req, res) => 
+router.post('api/addgroup', async (req, res) => 
 {
     // incoming: GroupName, UserIds (array)
     // outgoing: error
