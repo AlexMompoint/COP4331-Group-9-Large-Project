@@ -18,16 +18,16 @@ function GroupUI()
     var event = '';
     const [message,setMessage] = useState('');
 
-    var _gd = localStorage.getItem('group_data');
-    var gd = JSON.parse(_gd);
-    var groupname = gd.groupname;
-    var users = gd.users;
+    var _ud = localStorage.getItem('user_data');
+    var ud = JSON.parse(_ud);
+    var groupname;
+    var users = ud.id;
 
     const createGroup = async event => 
     {
         event.preventDefault();
 
-        var obj = { groupname:groupname, userids:users };
+        var obj = { groupname:groupname.value, userids:users };
         var js = JSON.stringify(obj);
         
         try
