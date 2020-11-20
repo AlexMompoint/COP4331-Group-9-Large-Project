@@ -3,7 +3,7 @@ import React from 'react';
 import PageTitle from '../components/PageTitle';
 import LoggedInName from '../components/LoggedInName';
 import ScheduleUI from '../components/ScheduleUI';
-import GroupUI from '../components/GroupUI';
+import GroupUI from '../components/GroupAdd';
 
 const HomePage = () =>
 {
@@ -12,7 +12,7 @@ const HomePage = () =>
             <PageTitle />
             <LoggedInName />
             <ScheduleUI />
-            <GroupUI />
+            <GroupAdd />
         </div>
     );
 }

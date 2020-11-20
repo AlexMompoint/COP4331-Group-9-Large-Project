@@ -2,9 +2,9 @@ import React from 'react';
 
 import PageTitle from '../components/PageTitle';
 import LoggedInName from '../components/LoggedInName';
-import GroupUI from '../components/GroupUI';
+import GroupUI from '../components/GroupAdd';
 
-const HomePage = () =>
+const GroupPage = () =>
 {
     return(
         <div>
@@ -15,4 +15,4 @@ const HomePage = () =>
     );
 }
 
-export default HomePage;
+export default GroupPage;
