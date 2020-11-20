@@ -3,7 +3,7 @@ import React from 'react';
 import PageTitle from '../components/PageTitle';
 import LoggedInName from '../components/LoggedInName';
 import ScheduleUI from '../components/ScheduleUI';
-import GroupUI from '../components/GroupAdd';
+import GroupAdd from '../components/GroupAdd';
 
 const HomePage = () =>
 {
