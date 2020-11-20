@@ -15,7 +15,8 @@ app.use(express.json());
 // apis
 app.use('/api', require('./apis/users')); // user apis
 app.use('/api', require('./apis/events')); // event apis
-app.use('/api/miscellaneous', require('./apis/miscellaneous'));
+app.use('/api', require('./apis/groups')); // group apis
+app.use('/api/miscellaneous', require('./apis/miscellaneous')); // misc apis
 
 app.use(cors());
 app.use((req, res, next) => {
