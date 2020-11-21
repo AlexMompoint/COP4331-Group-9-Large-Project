@@ -35,10 +35,10 @@ router.post('/createUser', async (req, res) => {
 		});
 		const user = await newUser.save();
 		await sendVerificationMail(email, user._id);
-		return res.status(201).json('Verify Email to Begin');
+		return res.status(201).json({ message: 'Verify Email to Begin' });
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json('internal server error');
+		return res.status(500).json({ error: 'internal server error' });
 	}
 });
 
@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
 		}
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json('internal server error');
+		return res.status(500).json({ error: 'internal server error' });
 	}
 });
 
