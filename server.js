@@ -11,13 +11,6 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
-
-// apis
-app.use('/api', require('./apis/users')); // user apis
-app.use('/api', require('./apis/events')); // event apis
-app.use('/api', require('./apis/groups')); // group apis
-app.use('/api/miscellaneous', require('./apis/miscellaneous')); // misc apis
-
 app.use(cors());
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -31,6 +24,12 @@ app.use((req, res, next) => {
 	);
 	next();
 });
+
+// apis
+app.use('/api', require('./apis/users')); // user apis
+app.use('/api', require('./apis/events')); // event apis
+app.use('/api', require('./apis/groups')); // group apis
+app.use('/api/miscellaneous', require('./apis/miscellaneous')); // misc apis
 
 app.set('port', PORT);
 
