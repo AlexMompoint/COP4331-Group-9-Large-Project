@@ -61,6 +61,8 @@ router.post('/login', async (req, res) => {
 				friends: user.Friends,
 			};
 			return res.status(200).json(payload);
+		} else {
+			return res.status(400).json({error: "username does not exist"});
 		}
 	} catch (error) {
 		console.error(error);
