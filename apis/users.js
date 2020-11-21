@@ -16,7 +16,8 @@ router.post('/createUser', async (req, res) => {
 
 		if (Object.keys(errors).length !== 0) return res.status(400).json(errors);
 		const mailExists = await User.findOne({ Email: email });
-		if (mailExists) return res.status(400).json({ errors: 'email already in use' });
+		if (mailExists)
+			return res.status(400).json({ errors: 'email already in use' });
 
 		const usernameExists = await User.findOne({ Username: username });
 		if (usernameExists)
@@ -42,14 +43,15 @@ router.post('/createUser', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+	console.log('logging in');
 	const { username, password } = req.body;
 	try {
 		const user = await User.findOne({ Username: username });
 		if (user) {
 			if (!user.isVerified)
-				return res.status(400).json('please confirm your email');
+				return res.status(400).json({ error: 'please confirm your email' });
 			const match = await bcrypt.compare(password, user.Password);
-			if (!match) return res.status(400).json('wrong credentials');
+			if (!match) return res.status(400).json({ error: 'wrong credentials' });
 			const token = createLoginToken(user._id, user.Username);
 			const payload = {
 				token,

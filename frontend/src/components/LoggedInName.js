@@ -1,26 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-function LoggedInName()
-{
-    var _ud = localStorage.getItem('user_data');
-    var ud = JSON.parse(_ud);
-    // var userId = ud.id;
-    var firstName = ud.firstName;
-    var lastName = ud.lastName;
+function LoggedInName() {
+	const [user, setUser] = useState({});
+	useEffect(() => {
+		const fname = localStorage.getItem('fname');
+		const lname = localStorage.getItem('lname');
+		const token = localStorage.getItem('token');
+		const username = localStorage.getItem('username');
+		setUser({ firstName: fname, lastName: lname, token, username });
+	}, []);
 
-    const doLogout = event =>
-    {
-        event.preventDefault();
-        localStorage.removeItem("user_data");
-        window.location.href = '/';
-    };
+	const doLogout = (event) => {
+		event.preventDefault();
+		localStorage.removeItem('fname');
+		localStorage.removeItem('lname');
+		localStorage.removeItem('token');
+		localStorage.removeItem('username');
+		setUser(null);
+		window.location.href = '/';
+	};
 
-    return(
-         <div id="logoutDiv">
-            <span id="userName">Logged In As {firstName} {lastName} </span><br />
-            <input type="submit" id="logoutButton" class="buttons" value="Logout" onClick={doLogout} />
-        </div>
-    );
-};
+	return (
+		<div id="logoutDiv">
+			<span id="userName">
+				Logged In As {user.firstName} {user.lastName}{' '}
+			</span>
+			<br />
+			<input
+				type="submit"
+				id="logoutButton"
+				class="buttons"
+				value="Logout"
+				onClick={doLogout}
+			/>
+		</div>
+	);
+}
 
 export default LoggedInName;

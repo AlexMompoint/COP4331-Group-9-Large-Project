@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-//new  edit
-const nodemailer = require('nodemailer');
 
 function CreateUser() {
 	const app_name = 'group9-meetingscheduler';
