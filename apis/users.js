@@ -14,7 +14,7 @@ router.post('/createUser', async (req, res) => {
 		if (password !== confirmPassword) errors.password = 'passwords must match';
 		if (!regex.test(email)) errors.email = 'please provide a valid email';
 
-		if (Object.keys(errors).length !== 0) return res.json(errors);
+		if (Object.keys(errors).length !== 0) return res.json({errors});
 		const mailExists = await User.findOne({ Email: email });
 		if (mailExists) return res.json({ errors: 'email already in use' });
 
@@ -37,7 +37,7 @@ router.post('/createUser', async (req, res) => {
 		return res.json({ message: 'Verify Email to Begin' });
 	} catch (error) {
 		console.error(error);
-		return res.json({ error: 'internal server error' });
+		return res.json({ errors: 'internal server error' });
 	}
 });
 
@@ -48,9 +48,9 @@ router.post('/login', async (req, res) => {
 		const user = await User.findOne({ Username: username });
 		if (user) {
 			if (!user.isVerified)
-				return res.json({ error: 'please confirm your email' });
+				return res.json({ errors: 'please confirm your email' });
 			const match = await bcrypt.compare(password, user.Password);
-			if (!match) return res.json({ error: 'wrong credentials' });
+			if (!match) return res.json({ errors: 'wrong credentials' });
 			const token = createLoginToken(user._id, user.Username);
 			const payload = {
 				token,
@@ -61,11 +61,11 @@ router.post('/login', async (req, res) => {
 			};
 			return res.json(payload);
 		} else {
-			return res.json({ error: 'username does not exist' });
+			return res.json({ errors: 'username does not exist' });
 		}
 	} catch (error) {
 		console.error(error);
-		return res.json({ error: 'internal server error' });
+		return res.json({ errors: 'internal server error' });
 	}
 });
 
