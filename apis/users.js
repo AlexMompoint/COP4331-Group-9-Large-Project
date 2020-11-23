@@ -14,14 +14,13 @@ router.post('/createUser', async (req, res) => {
 		if (password !== confirmPassword) errors.password = 'passwords must match';
 		if (!regex.test(email)) errors.email = 'please provide a valid email';
 
-		if (Object.keys(errors).length !== 0) return res.status(400).json(errors);
+		if (Object.keys(errors).length !== 0) return res.json(errors);
 		const mailExists = await User.findOne({ Email: email });
-		if (mailExists)
-			return res.status(400).json({ errors: 'email already in use' });
+		if (mailExists) return res.json({ errors: 'email already in use' });
 
 		const usernameExists = await User.findOne({ Username: username });
 		if (usernameExists)
-			return res.status(400).json({ errors: 'username is already taken' });
+			return res.json({ errors: 'username is already taken' });
 
 		password = await bcrypt.hash(password, 12);
 		const newUser = new User({
@@ -35,10 +34,10 @@ router.post('/createUser', async (req, res) => {
 		});
 		const user = await newUser.save();
 		await sendVerificationMail(email, user._id);
-		return res.status(201).json({ message: 'Verify Email to Begin' });
+		return res.json({ message: 'Verify Email to Begin' });
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json({ error: 'internal server error' });
+		return res.json({ error: 'internal server error' });
 	}
 });
 
@@ -49,9 +48,9 @@ router.post('/login', async (req, res) => {
 		const user = await User.findOne({ Username: username });
 		if (user) {
 			if (!user.isVerified)
-				return res.status(400).json({ error: 'please confirm your email' });
+				return res.json({ error: 'please confirm your email' });
 			const match = await bcrypt.compare(password, user.Password);
-			if (!match) return res.status(400).json({ error: 'wrong credentials' });
+			if (!match) return res.json({ error: 'wrong credentials' });
 			const token = createLoginToken(user._id, user.Username);
 			const payload = {
 				token,
@@ -60,13 +59,13 @@ router.post('/login', async (req, res) => {
 				lname: user.LastName,
 				friends: user.Friends,
 			};
-			return res.status(200).json(payload);
+			return res.json(payload);
 		} else {
-			return res.status(400).json({error: "username does not exist"});
+			return res.json({ error: 'username does not exist' });
 		}
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json({ error: 'internal server error' });
+		return res.json({ error: 'internal server error' });
 	}
 });
 
@@ -74,9 +73,9 @@ router.post('/friendrequest', auth, async (req, res) => {
 	try {
 		const { username } = req.body.username;
 		const friend = User.findOne({ Username: username });
-		if (!friend) return res.status(400).json('this user does not exists');
+		if (!friend) return res.json('this user does not exists');
 		const user = User.findById(req.user.id);
-		if (!user) return res.status(400).json('you are not a valid user');
+		if (!user) return res.json('you are not a valid user');
 		user.Friends.push({
 			id: friend._id,
 			Username: friend.Username,
@@ -89,23 +88,23 @@ router.post('/friendrequest', auth, async (req, res) => {
 		});
 		await user.save();
 		await friend.save();
-		return res.status.json({
+		return res.json({
 			id: friend._id,
 			username: friend.Username,
 			pending: true,
 		});
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json('internal server error');
+		return res.json('internal server error');
 	}
 });
 
 router.post('/addfriend', async (req, res) => {
 	try {
 		const friend = User.findById(req.body.id);
-		if (!friend) return res.status(400).json('friend does not exist');
+		if (!friend) return res.json('friend does not exist');
 		const user = User.findById(req.user.id);
-		if (!user) return res.status(400).json('you are not a valid user');
+		if (!user) return res.json('you are not a valid user');
 		user.Friends = user.Friends.filter((request) => {
 			if (request.id === req.body.id) request.pending = false;
 			return request;
@@ -116,29 +115,29 @@ router.post('/addfriend', async (req, res) => {
 		});
 		await user.save();
 		await friend.save();
-		return res.status(200).json('successfully added friend');
+		return res.json('successfully added friend');
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json('internal server error');
+		return res.json('internal server error');
 	}
 });
 
 router.delete('/deletefriend', async (req, res) => {
 	try {
 		const friend = User.findById(req.body.id);
-		if (!friend) return res.status(400).json('friend does not exist');
+		if (!friend) return res.json('friend does not exist');
 		const user = User.findById(req.user.id);
-		if (!user) return res.status(400).json('you are not a valid user');
+		if (!user) return res.json('you are not a valid user');
 		user.Friends = user.Friends.filter((request) => request.id !== req.body.id);
 		friend.Friends = friend.Friends.filter(
 			(request) => request.id !== req.user.id
 		);
 		await user.save();
 		await friend.save();
-		return res.status(200).json('successfully removed friend');
+		return res.json('successfully removed friend');
 	} catch (error) {
 		console.error(error);
-		return res.status(500).json('internal server error');
+		return res.json('internal server error');
 	}
 });
 module.exports = router;
