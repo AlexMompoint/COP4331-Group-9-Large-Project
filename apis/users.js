@@ -37,7 +37,7 @@ router.post('/createUser', async (req, res) => {
 		return res.json({ message: 'Verify Email to Begin' });
 	} catch (error) {
 		console.error(error);
-		return res.json({ errors: 'internal server error' });
+		return res.json({ errors: error });
 	}
 });
 
@@ -65,7 +65,7 @@ router.post('/login', async (req, res) => {
 		}
 	} catch (error) {
 		console.error(error);
-		return res.json({ errors: 'internal server error' });
+		return res.json({ errors: error });
 	}
 });
 
@@ -75,7 +75,7 @@ router.post('/friendrequest', auth, async (req, res) => {
 		const friend = User.findOne({ Username: username });
 		if (!friend) return res.json('this user does not exists');
 		const user = User.findById(req.user.id);
-		if (!user) return res.json('you are not a valid user');
+		if (!user) return res.json({errors: 'you are not a valid user'});
 		user.Friends.push({
 			id: friend._id,
 			Username: friend.Username,
@@ -95,7 +95,7 @@ router.post('/friendrequest', auth, async (req, res) => {
 		});
 	} catch (error) {
 		console.error(error);
-		return res.json('internal server error');
+		return res.json({errors: error});
 	}
 });
 
@@ -115,29 +115,29 @@ router.post('/addfriend', async (req, res) => {
 		});
 		await user.save();
 		await friend.save();
-		return res.json('successfully added friend');
+		return res.json({message: 'successfully added friend'});
 	} catch (error) {
 		console.error(error);
-		return res.json('internal server error');
+		return res.json({errors: error});
 	}
 });
 
 router.delete('/deletefriend', async (req, res) => {
 	try {
 		const friend = User.findById(req.body.id);
-		if (!friend) return res.json('friend does not exist');
+		if (!friend) return res.json({errors: 'friend does not exist'});
 		const user = User.findById(req.user.id);
-		if (!user) return res.json('you are not a valid user');
+		if (!user) return res.json({errors: 'you are not a valid user'});
 		user.Friends = user.Friends.filter((request) => request.id !== req.body.id);
 		friend.Friends = friend.Friends.filter(
 			(request) => request.id !== req.user.id
 		);
 		await user.save();
 		await friend.save();
-		return res.json('successfully removed friend');
+		return res.json({message: 'successfully removed friend'});
 	} catch (error) {
 		console.error(error);
-		return res.json('internal server error');
+		return res.json({errors: error});
 	}
 });
 module.exports = router;
